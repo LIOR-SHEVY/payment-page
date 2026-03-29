@@ -5,38 +5,46 @@
 
 <style>
 body {
-  background: #e5e5e5;
+  background: #dcdcdc;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   font-family: Arial;
+  margin: 0;
 }
 
 .box {
-  background: #111;
-  padding: 25px;
-  border-radius: 12px;
-  width: 320px;
+  background: linear-gradient(145deg, #111, #1b1b1b);
+  padding: 30px;
+  border-radius: 16px;
+  width: 340px;
   color: white;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
-input {
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.input {
   width: 100%;
   padding: 12px;
-  margin-top: 5px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   background: #1c1c1c;
   border: 1px solid #333;
+  border-radius: 8px;
   color: white;
-  border-radius: 6px;
 }
 
-.stripe-input {
-  background: white;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 12px;
+.stripe {
+  background: #1c1c1c;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #333;
 }
 
 .row {
@@ -46,11 +54,18 @@ input {
 
 button {
   width: 100%;
-  padding: 12px;
-  background: #e0e0e0;
+  padding: 14px;
+  background: #e6e6e6;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: white;
 }
 </style>
 </head>
@@ -58,15 +73,15 @@ button {
 <body>
 
 <div class="box">
-  <h3>Credit Card Details</h3>
+  <div class="title">Credit Card Details</div>
 
-  <input placeholder="Name on card" />
+  <input class="input" placeholder="Name on card" />
 
-  <div id="card-number" class="stripe-input"></div>
+  <div id="card-number" class="stripe"></div>
 
   <div class="row">
-    <div id="card-expiry" class="stripe-input"></div>
-    <div id="card-cvc" class="stripe-input"></div>
+    <div id="card-expiry" class="stripe" style="flex:1;"></div>
+    <div id="card-cvc" class="stripe" style="flex:1;"></div>
   </div>
 
   <button id="pay">Pay Now</button>
@@ -74,7 +89,16 @@ button {
 
 <script>
 const stripe = Stripe("YOUR_PUBLISHABLE_KEY");
-const elements = stripe.elements();
+
+const elements = stripe.elements({
+  style: {
+    base: {
+      color: "#fff",
+      fontSize: "16px",
+      "::placeholder": { color: "#aaa" }
+    }
+  }
+});
 
 const cardNumber = elements.create("cardNumber");
 const cardExpiry = elements.create("cardExpiry");
