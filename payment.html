@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body style="background:#0B0B0B;color:white;">
+
+  <form id="payment-form">
+    <div id="card-element"></div>
+    <br>
+    <button id="submit">Pay Now</button>
+  </form>
+
+  <script>
+    const stripe = Stripe("YOUR_PUBLISHABLE_KEY");
+
+    const elements = stripe.elements();
+    const card = elements.create("card");
+    card.mount("#card-element");
+
+    document.getElementById("payment-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      alert("Payment will be connected next step");
+    });
+  </script>
+
+</body>
+</html>
