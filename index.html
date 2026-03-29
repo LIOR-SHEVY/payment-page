@@ -1,15 +1,52 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body style="background:#0B0B0B;color:white;">
 
-  <form id="payment-form">
-    <div id="card-element"></div>
-    <br>
-    <button id="submit">Pay Now</button>
-  </form>
+  <style>
+    body {
+      background: #0b0b0b;
+      color: white;
+      font-family: Arial;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .box {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    #card-element {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <form id="payment-form">
+      <div id="card-element"></div>
+      <button id="submit">Pay Now</button>
+    </form>
+  </div>
 
   <script>
     const stripe = Stripe("YOUR_PUBLISHABLE_KEY");
@@ -18,9 +55,9 @@
     const card = elements.create("card");
     card.mount("#card-element");
 
-    document.getElementById("payment-form").addEventListener("submit", async (e) => {
+    document.getElementById("payment-form").addEventListener("submit", function(e) {
       e.preventDefault();
-      alert("Payment will be connected next step");
+      alert("Payment will be connected next");
     });
   </script>
 
