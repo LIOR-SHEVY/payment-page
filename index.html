@@ -1,65 +1,93 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
-  <style>
-    body {
-      background: #0b0b0b;
-      color: white;
-      font-family: Arial;
-      margin: 0;
-      padding: 20px;
-    }
+<style>
+body {
+  background: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial;
+}
 
-    .box {
-      width: 100%;
-      max-width: 400px;
-      margin: auto;
-    }
+.box {
+  background: #111;
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+  color: white;
+}
 
-    #card-element {
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 12px;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 6px;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      background: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-  </style>
+.stripe-input {
+  background: white;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #e0e0e0;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="box">
-    <form id="payment-form">
-      <div id="card-element"></div>
-      <button id="submit">Pay Now</button>
-    </form>
+<div class="box">
+  <h3>Credit Card Details</h3>
+
+  <input placeholder="Name on card" />
+
+  <div id="card-number" class="stripe-input"></div>
+
+  <div class="row">
+    <div id="card-expiry" class="stripe-input"></div>
+    <div id="card-cvc" class="stripe-input"></div>
   </div>
 
-  <script>
-    const stripe = Stripe("YOUR_PUBLISHABLE_KEY");
+  <button id="pay">Pay Now</button>
+</div>
 
-    const elements = stripe.elements();
-    const card = elements.create("card");
-    card.mount("#card-element");
+<script>
+const stripe = Stripe("YOUR_PUBLISHABLE_KEY");
+const elements = stripe.elements();
 
-    document.getElementById("payment-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Payment will be connected next");
-    });
-  </script>
+const cardNumber = elements.create("cardNumber");
+const cardExpiry = elements.create("cardExpiry");
+const cardCvc = elements.create("cardCvc");
+
+cardNumber.mount("#card-number");
+cardExpiry.mount("#card-expiry");
+cardCvc.mount("#card-cvc");
+
+document.getElementById("pay").addEventListener("click", () => {
+  alert("Next step → connect payment");
+});
+</script>
 
 </body>
 </html>
